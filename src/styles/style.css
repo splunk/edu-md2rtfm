@@ -1,0 +1,262 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.25;
+    background: transparent;
+    font-size: 12px;
+    color: #242424;
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    /* border: 1px solid red; */
+    margin: 0;
+    padding: 0 0 1px 0;
+}
+
+h1 {
+    font-size: 24px;
+    color: #ee0884;
+    /* margin: 0; */
+    /* padding: 5px 0 0 0; */
+    margin-top: 8px;
+}
+
+h2 {
+    margin-top: 32px;
+    color: black;
+}
+
+h3 {
+    font-size: 16px;
+    color: #242424;
+    margin: 0;
+    padding: 5px 0 0 0;
+    margin: 5px 0 0 0;
+}
+
+h4 {
+    /* TODO */
+}
+
+h5 {
+    /* TODO */
+}
+
+h6 {
+    /* TODO */
+}
+
+p {
+    font-size: 14px;
+    margin: 0 0 2px 0;
+    /* padding: 0 0 0 1px; */
+}
+
+ol {
+    list-style-type: decimal !important;  
+    padding-left: 20px;
+    font-size: 12px;
+}
+
+ul {
+    padding-left: 20px;
+    font-size: 12px;
+}
+
+li {
+    margin: 0 0 2px 0;
+    font-size: 14px;
+}
+
+a:link {
+    color: #EE0884;
+}
+
+img {
+    max-width: 99.99%;
+    margin: 0;
+    padding: 0;
+}
+
+/* CODE BLOCK STYLES */
+pre { 
+    background-color: #333333;
+    padding: 5px;
+    white-space: pre-wrap;
+    margin: 2px 0 2px 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+code {
+    font-size: 12px;
+    font-weight: bold;
+    font-family: 'Consolas', monospace;
+}
+
+pre>code {
+    color: white;
+    font-size: 12px;
+    width: 1900px;
+    padding: 1px;
+    white-space: pre-wrap;
+}
+
+
+/* TABLE STYLES */
+table {
+    border-collapse: collapse;
+    margin: 5px 0 10px 0;
+    padding: 5px;
+    font-size: 12px;
+    min-width: 400px;
+	line-height: 10pt;
+	width: 99.9%;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+thead tr {
+    background-color: #303030;
+    color: white;
+    text-align: center;
+    border: 1px solid #202020;
+}
+
+th {
+	/* background-color: #ffd700; */
+	padding: 5px;
+    font-size: 12px;
+}
+
+td {
+	padding: 5px;
+	vertical-align: top;
+    border: 1px solid #202020;
+    font-size: 12px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #202020;
+}
+
+tbody tr:nth-of-type(even) {    
+    /* Splunk brand */
+    background-color: #E6E6E6;
+}
+
+tbody tr:last-of-type {
+    /* Splunk brand */
+    border-bottom: 1px solid #303030;
+}
+
+/* ADMONITION STYLES */
+.admonition {
+  display: flex;
+  align-items: flex-start; 
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding: 0;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.admonition-title {
+  font-weight: bold;
+  min-width: 100px;
+  padding: 8px;
+  margin-left: 8px;
+  flex-shrink: 0; 
+  white-space: nowrap; 
+}
+
+.admonition-content {
+  flex: 1;
+  padding: 8px 8px 8px 0;
+}
+
+.admonition.answers {
+  border-left: 4px solid #ee0884;
+  padding: 1em;
+  margin: 1em 0;
+  color: #ee0884;
+}
+
+
+.admonition.caution {
+  /* Splunk brand yellow */
+  border-color: #f0d318;
+  border-left: 4px solid #f0d318;
+  background-color: #fbf2cb; 
+  color: #665c00;
+}
+
+.admonition.danger {
+  /* Splunk brand secondary color */
+  border-color: #c83c10;
+  border-left: 4px solid #c83c10;
+  background-color: #f0d4c7; 
+  color: #8a2200;
+
+}
+
+.admonition.hint {
+  /* Splunk brand secondary color */
+  border-color: #894dd6;
+  border-left: solid 4px #894dd6;
+  background-color: #e5d9f7; 
+  color: #4b2e83;
+
+}
+
+.admonition.info {
+  /* Splunk brand secondary color */
+  border-color: #296aa8;
+  border-left: 4px solid #296aa8;
+  background-color: #dbe4ef; 
+  color: #184f81;
+
+}
+
+.admonition.note {
+  background-color: #E6E6E6;
+  /* border: solid 1px #7F7F7F; */
+  border-left: solid 4px #7F7F7F;
+  color: #333333;
+
+}
+
+.admonition.scenario {
+  /* Splunk brand secondary color */
+  border-top: dotted #7F7F7F;
+  border-bottom: dotted #7F7F7F; 
+  color: #333333;
+}
+
+.admonition.tip {
+  /* Splunk brand secondary color */
+  border-color: #59c3aa;
+  border-left: 4px solid #59c3aa;
+  background-color: #d6ebe0; 
+  color: #1b4f44;
+}
+
+.admonition.warning {
+  border-color: #f99d1c; 
+  border-left: 4px solid #f99d1c; 
+  background-color: #ffe6b3; 
+  color: #5c3d00; 
+}
+
+/*  */
+.page-break {
+    page-break-after: always;
+}
+
+
+/* DETAILS STYLES */
+details {
+    font-size: 12px;
+    color: #EE0884;
+}

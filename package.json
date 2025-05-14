@@ -1,0 +1,32 @@
+{
+  "name": "@splunk-edu/md2rtfm",
+  "version": "1.0.0",
+  "description": "Convert Markdown to fantastic manuals. ",
+  "main": "./src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "md2rtfm": "./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/splunk/edu-rtfm.git"
+  },
+  "author": "Splunk EDU",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/splunk/edu-rtfm/issues"
+  },
+  "homepage": "https://github.com/splunk/edu-rtfm#readme",
+  "dependencies": {
+    "commander": "^13.1.0",
+    "js-yaml": "^4.1.0",
+    "markdown-it": "^14.1.0",
+    "markdown-it-container": "^4.0.0",
+    "marked": "^15.0.11",
+    "puppeteer": "^24.8.2",
+    "sharp": "^0.34.1"
+  }
+}
