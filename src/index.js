@@ -31,10 +31,10 @@ const program = new Command();
 
 program
   .name("md2rtfm")
-  .description("Convert *-readme.md to a fantastic manual.")
+  .description("Convert *-readme.md or *-README.md to a fantastic manual.")
   .argument(
     "[sourceDir]",
-    "Directory containing a Markdown file ending in `-readme.md`.",
+    "Directory containing a Markdown file ending in `-readme.md` or `-README.md`.",
     process.cwd()
   )
   // .option("-v, --verbose", "Enable verbose logging")
