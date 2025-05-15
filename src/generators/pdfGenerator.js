@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import fs from "fs/promises";
+import logger from "../utils/logger.js";
 
 export async function generatePdf({
   htmlContent,
@@ -29,6 +29,8 @@ export async function generatePdf({
     headerTemplate,
     footerTemplate,
   });
+
+  logger.info(`⚙️  Generating PDF ${outputPath}`);
 
   await browser.close();
 }

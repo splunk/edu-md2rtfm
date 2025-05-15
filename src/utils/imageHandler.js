@@ -25,7 +25,7 @@ export async function embedLocalImages(markdown, sourceDir) {
         };
       } catch (err) {
         logger.warn(
-          `⚠️ Could not embed image: ${imgPath} (resolved: ${resolvedPath}). Reason: ${err.message}`
+          `Could not embed image: ${imgPath} (resolved: ${resolvedPath}). Reason: ${err.message}`
         );
         return { original: fullMatch, replacement: fullMatch };
       }

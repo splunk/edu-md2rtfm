@@ -15,29 +15,17 @@ import {
 import { renderMarkdown } from "./generators/mdGenerator.js";
 import { generatePdf } from "./generators/pdfGenerator.js";
 
-import { loadMetadata, updateMetadataDate } from "./utils/metadataHandler.js";
-import { buildOutputFilename } from "./utils/fileHandler.js";
+import {
+  loadMetadata,
+  updateMetadataDate,
+  getFormattedDate,
+  getMetadataPath,
+} from "./utils/metadataHandler.js";
+import { buildOutputFilename, fileExists } from "./utils/fileHandler.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ASSETS_DIR = path.join(__dirname, "./assets");
-
-async function fileExists(filePath) {
-  try {
-    await fs.access(filePath);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function getFormattedDate(input) {
-  const date = input ? new Date(input) : new Date();
-  if (isNaN(date)) {
-    throw new Error("Invalid date format. Use YYYY-MM-DD.");
-  }
-  return date.toISOString().split("T")[0];
-}
 
 const program = new Command();
 
@@ -49,36 +37,33 @@ program
     "Directory containing a Markdown file ending in `-readme.md`.",
     process.cwd()
   )
-  .option("-v, --verbose", "Enable verbose logging")
+  // .option("-v, --verbose", "Enable verbose logging")
   .option(
     "-d, --date <date>",
     "Custom date for 'updated' field in YYYY-MM-DD format"
   )
   .action(async (sourceDir, options) => {
     try {
-      // Check directory content for readme file
       const files = await fs.readdir(sourceDir);
       const readmeFile = files.find((file) => /-readme\.md$/i.test(file));
 
       if (!readmeFile) {
-        logger.error("❌ No '-readme.md' file found in", sourceDir);
+        logger.error(
+          "No '-readme.md' or '-README.md' file found in",
+          sourceDir
+        );
         process.exit(1);
       }
 
       const markdownPath = path.join(sourceDir, readmeFile);
+      logger.info(`🚚 Loading Markdown ${markdownPath}`);
       const markdown = await fs.readFile(markdownPath, "utf8");
 
-      const metadataPath = path.join(sourceDir, "metadata.yaml");
+      const metadataPath = await getMetadataPath(sourceDir);
       const metadata = await loadMetadata(metadataPath);
 
       const updatedDate = getFormattedDate(options.date);
-      await updateMetadataDate(
-        metadataPath,
-        metadata,
-        updatedDate,
-        options.verbose,
-        logger
-      );
+      await updateMetadataDate(metadataPath, metadata, updatedDate, logger);
 
       const htmlBody = await renderMarkdown(
         markdown,
@@ -108,9 +93,9 @@ program
         footerTemplate: buildFooter(),
       });
 
-      logger.log(`🦄 Generated fantastic manual: ${outputPath}`);
+      logger.info(`🌟 Read the fantastic manual!`);
     } catch (err) {
-      logger.error("❌ Error:", err.stack || err.message || err);
+      logger.error("Error:", err.stack || err.message || err);
       console.error(err);
       process.exit(1);
     }

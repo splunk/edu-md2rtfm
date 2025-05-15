@@ -2,19 +2,38 @@ import logger from "../utils/logger.js";
 import container from "markdown-it-container";
 
 export function buildHeader(logoBase64) {
+  // logger.info("🪚 Building header...");
   return `
     <div style="width: 100%; padding: 0 60px; margin-top: 12px; box-sizing: border-box;">
       <div style="width: 100%; height: 50px; border-bottom: 1px solid black; display: flex; align-items: center; box-sizing: border-box;">
-        <img src="data:image/png;base64,${logoBase64}" style="height: 40px; width: auto; max-width: 100%; object-fit: contain;" />
+        <img 
+          src="data:image/png;base64,${logoBase64}" 
+          style="
+            height: 40px; 
+            width: auto; 
+            max-width: 100%; 
+            object-fit: contain;
+          " />
       </div>
     </div>
   `;
 }
 
 export function buildFooter() {
+  // logger.info("🔨 Building footer...");
   return `
-    <div style="width:100%; font-size:14px; padding:0 1cm; display:flex; justify-content:right;">
-      <span style="font-size:8px;"><span class="pageNumber"></span></span>
+    <div style="
+      width:100%;
+      padding:0 2cm; 
+      padding-bottom: .5cm;
+      display:flex; 
+      justify-content:right;
+    ">
+      <span style="
+        font-size:14px;
+        color: #7f7f7f;
+      "><span class="pageNumber"></span>
+      </span>
     </div>
   `;
 }
@@ -22,9 +41,11 @@ export function buildFooter() {
 export function injectDateAfterH1(html, dateString) {
   if (!dateString) return html;
 
+  logger.info("📅 Stamping datestamp", dateString);
+
   return html.replace(
     /(<h1[^>]*>.*?<\/h1>)/i,
-    `$1\n<p>Date stamp of material: ${dateString}</p>`
+    `$1\n<p>Updated: ${dateString}</p>`
   );
 }
 

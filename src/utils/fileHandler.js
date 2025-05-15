@@ -1,4 +1,5 @@
 import path from "path";
+import fs from "fs/promises";
 
 export function buildOutputFilename(metadata, sourceDir) {
   try {
@@ -25,5 +26,14 @@ export function buildOutputFilename(metadata, sourceDir) {
       .replace(/\s+/g, "-");
 
     return `${fallback}-README.pdf`;
+  }
+}
+
+export async function fileExists(filePath) {
+  try {
+    await fs.access(filePath);
+    return true;
+  } catch {
+    return false;
   }
 }

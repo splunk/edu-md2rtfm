@@ -1,9 +1,27 @@
 import MarkdownIt from "markdown-it";
+import markdownItAnchor from "markdown-it-anchor";
 import { registerContainers } from "../generators/htmlGenerator.js";
+import logger from "../utils/logger.js";
 
 export async function renderMarkdown(markdown, sourceDir, embedFn) {
-  const embedded = await embedFn(markdown, sourceDir); // <- await async embed
-  const md = new MarkdownIt({ html: true, linkify: true, typographer: true });
+  const embedded = await embedFn(markdown, sourceDir);
+
+  const md = new MarkdownIt({
+    html: true,
+    linkify: true,
+    typographer: true,
+  }).use(markdownItAnchor, {
+    permalink: false,
+    slugify: (s) =>
+      s
+        .trim()
+        .toLowerCase()
+        .replace(/[^\w]+/g, "-"),
+  });
+
   registerContainers(md);
+
+  //   logger.info("🔧 Rendering Markdown...");
+
   return md.render(embedded);
 }

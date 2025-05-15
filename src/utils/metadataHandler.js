@@ -1,6 +1,31 @@
 import fs from "fs/promises";
 import path from "path";
 import yaml from "js-yaml";
+import logger from "./logger.js";
+
+export async function getMetadataPath(sourceDir) {
+  const metadataExtensions = ["yaml", "yml"];
+  let metadataPath;
+
+  // Try both .yaml and .yml extensions
+  for (const ext of metadataExtensions) {
+    const filePath = path.join(sourceDir, `metadata.${ext}`);
+    try {
+      await fs.access(filePath);
+      metadataPath = filePath;
+      break;
+    } catch (err) {
+      continue;
+    }
+  }
+
+  if (!metadataPath) {
+    logger.error("Metadata file not found (metadata.yaml or metadata.yml)");
+    process.exit(1);
+  }
+
+  return metadataPath;
+}
 
 export async function loadMetadata(metadataPath) {
   const metadataRaw = await fs.readFile(metadataPath, "utf8");
@@ -10,6 +35,8 @@ export async function loadMetadata(metadataPath) {
     metadata.course_id = metadata.course_id.toString().padStart(4, "0");
   }
 
+  logger.info(`🚚 Loading metadata ${metadataPath}`);
+
   return metadata;
 }
 
@@ -17,7 +44,6 @@ export async function updateMetadataDate(
   metadataPath,
   metadata,
   updatedDate,
-  verbose,
   logger
 ) {
   if (metadata.course_id) {
@@ -27,7 +53,19 @@ export async function updateMetadataDate(
   const newYaml = yaml.dump(metadata);
   await fs.writeFile(metadataPath, newYaml, "utf8");
 
-  if (verbose) {
-    logger.log(`📆 Updated metadata: ${updatedDate}`);
+  logger.info(`🏷️  Updating metadata.updated: ${updatedDate}`);
+}
+
+export function getFormattedDate(input) {
+  const date = input ? new Date(input) : new Date();
+
+  if (isNaN(date.getTime())) {
+    logger.error(
+      `Invalid date format. Use YYYY-MM-DD.`,
+      `You entered: ${input}`
+    );
+    process.exit(1);
   }
+
+  return date.toISOString().split("T")[0];
 }
