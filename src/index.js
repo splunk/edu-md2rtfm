@@ -63,7 +63,7 @@ program
       const metadata = await loadMetadata(metadataPath);
 
       const updatedDate = getFormattedDate(options.date);
-      await updateMetadataDate(metadataPath, metadata, updatedDate, logger);
+      await updateMetadataDate(metadataPath, metadata, updatedDate);
 
       const htmlBody = await renderMarkdown(
         markdown,
