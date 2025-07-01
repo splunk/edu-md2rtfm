@@ -1,4 +1,4 @@
-# edu-rtfm
+# edu-md2rtfm
 
 Convert Markdown to Splunk EDU course descriptions in PDF format.
 

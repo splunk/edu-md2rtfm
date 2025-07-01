@@ -73,7 +73,7 @@ program
       const htmlContent = injectDateAfterH1(htmlBody, updatedDate);
 
       const outputFilename = buildOutputFilename(metadata, sourceDir);
-      const outputPath = path.join(sourceDir, "pdfs", outputFilename);
+      const outputPath = path.join(sourceDir, outputFilename);
 
       const logoPath = path.join(ASSETS_DIR, "logo-splunk-cisco.png");
       const logoBase64 = await getLogoBase64(logoPath);

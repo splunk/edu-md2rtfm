@@ -1,6 +1,6 @@
 {
   "name": "@splunk-edu/md2rtfm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Convert Markdown to fantastic manuals. ",
   "main": "./src/index.js",
   "type": "module",
