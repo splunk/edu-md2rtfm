@@ -48,9 +48,36 @@ h6 {
     /* TODO */
 }
 
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+    font-size: inherit;
+}
+
+h1 em,
+h2 em,
+h3 em,
+h4 em,
+h5 em,
+h6 em {
+    font-size: inherit;
+}
+
+h1 strong,
+h2 strong,
+h3 strong,
+h4 strong,
+h5 strong,
+h6 strong {
+    font-size: inherit;
+}
+
 p {
     font-size: 14px;
-    margin: 0 0 2px 0;
+    margin: 0 0 4px 0;
     /* padding: 0 0 0 1px; */
 }
 
