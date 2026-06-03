@@ -1,6 +1,6 @@
 {
   "name": "@splunk-edu/md2rtfm",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Convert Markdown to fantastic manuals. ",
   "main": "./src/index.js",
   "type": "module",
@@ -27,7 +27,7 @@
     "markdown-it-anchor": "^9.2.0",
     "markdown-it-container": "^4.0.0",
     "marked": "^15.0.11",
-    "puppeteer": "^24.8.2",
+    "puppeteer": "^25.0.0",
     "sharp": "^0.34.1"
   }
 }
