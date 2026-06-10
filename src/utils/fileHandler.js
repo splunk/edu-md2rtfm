@@ -54,22 +54,33 @@ export async function findReadmeFiles(sourceDir, recursive = false) {
 
 export function buildOutputFilename(metadata, sourceDir) {
   try {
-    let { course_id, course_title } = metadata;
+    // Support both new schema { metadata: { courseId, courseTitle } },
+    // new flat { courseId, courseTitle }, and legacy flat { course_id, course_title }
+    let courseId =
+      metadata?.metadata?.courseId ??
+      metadata?.courseId ??
+      metadata?.metadata?.course_id ??
+      metadata?.course_id;
+    let courseTitle =
+      metadata?.metadata?.courseTitle ??
+      metadata?.courseTitle ??
+      metadata?.metadata?.course_title ??
+      metadata?.course_title;
 
-    if (typeof course_id === "number") {
-      course_id = course_id.toString().padStart(4, "0");
-    } else if (typeof course_id !== "string") {
-      throw new Error("Invalid course_id type");
+    if (typeof courseId === "number") {
+      courseId = courseId.toString().padStart(4, "0");
+    } else if (typeof courseId !== "string") {
+      throw new Error("Invalid courseId type");
     }
 
-    if (!course_id || !course_title) throw new Error("Missing fields");
+    if (!courseId || !courseTitle) throw new Error("Missing fields");
 
-    const safeTitle = course_title
+    const safeTitle = courseTitle
       .toLowerCase()
       .replace(/\s+/g, "-")
       .replace(/[^\w-]/g, "");
 
-    return `${course_id}-${safeTitle}-README.pdf`;
+    return `${courseId}-${safeTitle}-README.pdf`;
   } catch {
     const fallback = path
       .basename(sourceDir)
