@@ -1,0 +1,8 @@
+input:
+    rtfm:
+        - ./etc/this-README.md
+        - ./etc/THAT-readme.md
+output:
+    rtfm:
+        - ./dist/this-fantastic-README.pdf
+        - ./dist/THAT-FANTASTIC-readme.pdf

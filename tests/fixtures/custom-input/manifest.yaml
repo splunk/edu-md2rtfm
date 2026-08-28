@@ -1,0 +1,4 @@
+input:
+    rtfm:
+        - ./etc/this-README.md
+        - ./etc/THAT-readme.md
