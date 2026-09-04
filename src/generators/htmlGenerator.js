@@ -55,6 +55,52 @@ export function extractTitle(html) {
     return text || null;
 }
 
+export function registerImageRules(md) {
+    // Custom image renderer — supports scale= and align= in the title attribute
+    // Usage: ![alt](image.png "scale=50% align=center")
+    md.renderer.rules.image = function (tokens, idx) {
+        const token = tokens[idx];
+        const src = token.attrGet('src') ?? '';
+        const alt = token.children ? token.children.reduce((acc, t) => acc + t.content, '') : '';
+        const title = token.attrGet('title') ?? '';
+
+        const scaleMatch = title.match(/\bscale=(\d+%|\d+px)/);
+        const alignMatch = title.match(/\balign=(left|center|right)/);
+
+        // Only strip text that actually matched the whitelisted patterns above, so
+        // invalid directives (e.g. `scale=huge`) stay put as real title text.
+        let cleanTitle = title;
+        if (scaleMatch) cleanTitle = cleanTitle.replace(scaleMatch[0], '');
+        if (alignMatch) cleanTitle = cleanTitle.replace(alignMatch[0], '');
+        cleanTitle = cleanTitle.trim();
+
+        const styles = [];
+        if (scaleMatch) styles.push(`width: ${scaleMatch[1]}`);
+        if (alignMatch) {
+            const align = alignMatch[1];
+            if (align === 'center') {
+                styles.push('display: block', 'margin-left: auto', 'margin-right: auto');
+            } else if (align === 'left') {
+                styles.push('display: block', 'margin-right: auto');
+            } else if (align === 'right') {
+                styles.push('display: block', 'margin-left: auto');
+            }
+        }
+
+        const attrs = [
+            // src is escaped here (unlike the reference impl) to prevent attribute-breaking injection
+            `src="${md.utils.escapeHtml(src)}"`,
+            `alt="${md.utils.escapeHtml(alt)}"`,
+            cleanTitle ? `title="${md.utils.escapeHtml(cleanTitle)}"` : '',
+            styles.length ? `style="${styles.join('; ')}"` : '',
+        ]
+            .filter(Boolean)
+            .join(' ');
+
+        return `<img ${attrs}>`;
+    };
+}
+
 export function registerContainers(md) {
     const types = ['caution', 'danger', 'hint', 'info', 'note', 'tip', 'warning', 'scenario'];
 
